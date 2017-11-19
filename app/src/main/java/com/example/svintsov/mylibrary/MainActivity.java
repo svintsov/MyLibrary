@@ -9,10 +9,12 @@ import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import android.widget.Toast;
 import com.example.svintsov.mylibrary.databinding.ActivityMainBinding;
 import com.example.svintsov.mylibrary.model.ExampleModel;
 import com.example.svintsov.mylibrary.viewmodel.MyListAdapter;
 
+import com.example.svintsov.mylibrary.viewmodel.MyListAdapter.Listener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
@@ -35,10 +37,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     super.onCreate(savedInstanceState);
     mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-    mAdapter = new MyListAdapter(this, ALPHABETICAL_COMPARATOR);
-
-    //setSupportActionBar(mBinding.toolBar);
-
+    mAdapter = new MyListAdapter(this, ALPHABETICAL_COMPARATOR, new Listener() {
+      @Override
+      public void onExampleModelClicked(ExampleModel model) {
+        Toast.makeText(getApplicationContext(),model.getBookTitle(),Toast.LENGTH_SHORT).show();
+      }
+    });
+    
     mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
     mBinding.recyclerView.setAdapter(mAdapter);
 

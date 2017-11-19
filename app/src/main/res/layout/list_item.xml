@@ -5,6 +5,10 @@
   <data>
 
     <variable
+      name="listener"
+      type="com.example.svintsov.mylibrary.viewmodel.MyListAdapter.Listener"/>
+
+    <variable
       name="model"
       type="com.example.svintsov.mylibrary.model.ExampleModel"/>
 
@@ -22,7 +26,8 @@
 
     <RelativeLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent">
+      android:layout_height="match_parent"
+      android:onClick="@{view -> listener.onExampleModelClicked(model)}">
 
       <ImageView
         android:id="@+id/book_cover"

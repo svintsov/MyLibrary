@@ -59,17 +59,23 @@ public class MyListAdapter extends RecyclerView.Adapter<ItemViewHolder> {
   private final LayoutInflater mInflater;
   private final Comparator<ExampleModel> mComparator;
   private final Context context;
+  private final Listener mListener;
 
-  public MyListAdapter(Context context, Comparator<ExampleModel> comparator) {
+  public interface Listener {
+    void onExampleModelClicked(ExampleModel model);
+  }
+
+  public MyListAdapter(Context context, Comparator<ExampleModel> comparator, Listener listener) {
     mInflater = LayoutInflater.from(context);
     mComparator = comparator;
+    mListener=listener;
     this.context = context;
   }
 
   @Override
   public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
     final ListItemBinding binding = ListItemBinding.inflate(mInflater, parent, false);
-    return new ItemViewHolder(binding);
+    return new ItemViewHolder(binding,mListener);
   }
 
   @Override
