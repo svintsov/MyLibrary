@@ -1,7 +1,7 @@
 package com.example.svintsov.mylibrary.viewmodel;
 
 import android.support.v7.widget.RecyclerView;
-
+import android.widget.ImageView;
 import com.example.svintsov.mylibrary.databinding.ListItemBinding;
 import com.example.svintsov.mylibrary.model.ExampleModel;
 
@@ -11,14 +11,16 @@ import com.example.svintsov.mylibrary.model.ExampleModel;
 
 public class ItemViewHolder extends RecyclerView.ViewHolder {
 
-    private final ListItemBinding itemBinding;
+  private final ListItemBinding itemBinding;
+  ImageView imageView;
 
-    public ItemViewHolder(ListItemBinding binding) {
-        super(binding.getRoot());
-        itemBinding = binding;
-    }
+  public ItemViewHolder(ListItemBinding binding) {
+    super(binding.getRoot());
+    itemBinding = binding;
+    this.imageView = itemBinding.bookCover;
+  }
 
-    public void bind(ExampleModel item) {
-        itemBinding.setModel(item);
-    }
+  public void bind(ExampleModel item) {
+    itemBinding.setModel(item);
+  }
 }

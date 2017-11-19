@@ -14,76 +14,85 @@ import com.example.svintsov.mylibrary.model.ExampleModel;
 import com.example.svintsov.mylibrary.viewmodel.MyListAdapter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
 
-    private static final String[] BOOKS = new String[]{
-            "HP1","HP2","HP3","HP4","HP5","HP6","HP7"
-    };
-    private static final Comparator<ExampleModel> ALPHABETICAL_COMPARATOR = new Comparator<ExampleModel>() {
-        @Override
-        public int compare(ExampleModel a, ExampleModel b) {
-            return a.getText().compareTo(b.getText());
-        }
-    };
-    private MyListAdapter mAdapter;
-    private List<ExampleModel> mModels;
-    private ActivityMainBinding mBinding;
-
+  private static final Comparator<ExampleModel> ALPHABETICAL_COMPARATOR = new Comparator<ExampleModel>() {
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-
-        mAdapter = new MyListAdapter(this, ALPHABETICAL_COMPARATOR);
-
-        //setSupportActionBar(mBinding.toolBar);
-
-        mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mBinding.recyclerView.setAdapter(mAdapter);
-
-        mModels = new ArrayList<>();
-        for (String movie : BOOKS) {
-            mModels.add(new ExampleModel(55,movie));
-        }
-        mAdapter.add(mModels);
+    public int compare(ExampleModel a, ExampleModel b) {
+      return a.getBookTitle().compareTo(b.getBookTitle());
     }
+  };
+  private MyListAdapter mAdapter;
+  private List<ExampleModel> mModels;
+  private ActivityMainBinding mBinding;
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_menu, menu);
+  @Override
+  protected void onCreate(Bundle savedInstanceState) {
+    super.onCreate(savedInstanceState);
+    mBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
 
-        final MenuItem searchItem = menu.findItem(R.id.action_search);
-        final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        searchView.setOnQueryTextListener(this);
+    mAdapter = new MyListAdapter(this, ALPHABETICAL_COMPARATOR);
 
-        return true;
+    //setSupportActionBar(mBinding.toolBar);
+
+    mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
+    mBinding.recyclerView.setAdapter(mAdapter);
+
+    populateModelStorage();
+  }
+
+  @Override
+  public boolean onCreateOptionsMenu(Menu menu) {
+    getMenuInflater().inflate(R.menu.main_menu, menu);
+
+    final MenuItem searchItem = menu.findItem(R.id.action_search);
+    final SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+    searchView.setOnQueryTextListener(this);
+
+    return true;
+  }
+
+  private void populateModelStorage() {
+    ExampleModel[] BOOKS = new ExampleModel[]{
+        new ExampleModel("Harry Potter 1",
+            "http://s3.thingpic.com/images/UW/3ZiTHB6N1VYToynxJvG1N5uX.jpeg"),
+        new ExampleModel("Harry Potter 2",
+            "http://harrypotterfanzone.com/wp-content/2009/06/cos-us-jacket-art.jpg"),
+        new ExampleModel("Harry Potter 3","1"),
+        new ExampleModel("Harry Potter 4","1"),
+        new ExampleModel("Harry Potter 5","1"),
+        new ExampleModel("Harry Potter 6","1"),
+        new ExampleModel("Harry Potter 7","1")};
+
+    mModels = new ArrayList<>(Arrays.asList(BOOKS));
+    mAdapter.add(mModels);
+  }
+
+  public boolean onQueryTextChange(String query) {
+    final List<ExampleModel> filteredModelList = filter(mModels, query);
+    mAdapter.replaceAll(filteredModelList);
+    mBinding.recyclerView.scrollToPosition(0);
+    return true;
+  }
+
+  private static List<ExampleModel> filter(List<ExampleModel> models, String query) {
+    final String lowerCaseQuery = query.toLowerCase();
+
+    final List<ExampleModel> filteredModelList = new ArrayList<>();
+    for (ExampleModel model : models) {
+      final String text = model.getBookTitle().toLowerCase();
+      if (text.contains(lowerCaseQuery)) {
+        filteredModelList.add(model);
+      }
     }
+    return filteredModelList;
+  }
 
-
-    public boolean onQueryTextChange(String query) {
-        final List<ExampleModel> filteredModelList = filter(mModels, query);
-        mAdapter.replaceAll(filteredModelList);
-        mBinding.recyclerView.scrollToPosition(0);
-        return true;
-    }
-
-    private static List<ExampleModel> filter(List<ExampleModel> models, String query) {
-        final String lowerCaseQuery = query.toLowerCase();
-
-        final List<ExampleModel> filteredModelList = new ArrayList<>();
-        for (ExampleModel model : models) {
-            final String text = model.getText().toLowerCase();
-            if (text.contains(lowerCaseQuery)) {
-                filteredModelList.add(model);
-            }
-        }
-        return filteredModelList;
-    }
-
-    public boolean onQueryTextSubmit(String query) {
-        return false;
-    }
+  public boolean onQueryTextSubmit(String query) {
+    return false;
+  }
 }

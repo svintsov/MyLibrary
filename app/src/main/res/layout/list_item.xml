@@ -35,14 +35,14 @@
         android:src="@drawable/default_cover"/>
 
       <TextView
-        android:id="@+id/text"
+        android:id="@+id/bookTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/book_cover"
         android:padding="@dimen/title_padding"
         android:gravity="center_horizontal"
-        android:text="@{model.text}"
+        android:text="@{model.bookTitle}"
         android:textSize="@dimen/title"/>
 
     </RelativeLayout>

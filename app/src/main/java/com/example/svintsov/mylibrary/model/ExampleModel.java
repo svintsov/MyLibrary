@@ -6,37 +6,49 @@ package com.example.svintsov.mylibrary.model;
 
 public class ExampleModel {
 
-    private final int id;
-    private String text;
+  private static int id = 0;
+  private String bookTitle;
+  private String bookCoverUrl;
 
-    public ExampleModel(int id, String text) {
-        this.text=text;
-        this.id = id;
+  public ExampleModel(String bookTitle, String bookCoverUrl) {
+    this.bookTitle = bookTitle;
+    this.bookCoverUrl = bookCoverUrl;
+    id++;
+  }
+
+  public int getId() {
+    return id;
+  }
+
+  public String getBookTitle() {
+    return bookTitle;
+  }
+
+  public String getBookCoverUrl() {
+    return bookCoverUrl;
+  }
+
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) {
+      return true;
+    }
+    if (o == null || getClass() != o.getClass()) {
+      return false;
     }
 
-    public int getId() {
-        return id;
+    ExampleModel that = (ExampleModel) o;
+
+    if (id != that.id) {
+      return false;
     }
+    return bookTitle.equals(that.bookTitle);
+  }
 
-    public String getText() {
-        return text;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        ExampleModel that = (ExampleModel) o;
-
-        if (id != that.id) return false;
-        return text.equals(that.text);
-    }
-
-    @Override
-    public int hashCode() {
-        int result = id;
-        result = 31 * result + text.hashCode();
-        return result;
-    }
+  @Override
+  public int hashCode() {
+    int result = id;
+    result = 31 * result + bookTitle.hashCode();
+    return result;
+  }
 }
