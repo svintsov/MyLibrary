@@ -39,8 +39,8 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
       @Override
       public void onExampleModelClicked(ExampleModel model) {
         //Toast.makeText(getApplicationContext(),model.getBookTitle(),Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getApplicationContext(),FullInfoModelActivity.class);
-        intent.putExtra("MODEL",model);
+        Intent intent = new Intent(getApplicationContext(), FullInfoModelActivity.class);
+        intent.putExtra("MODEL", model);
         startActivity(intent);
       }
     });
@@ -60,22 +60,6 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     searchView.setOnQueryTextListener(this);
 
     return true;
-  }
-
-  private void populateModelStorage() {
-    ExampleModel[] BOOKS = new ExampleModel[]{
-        new ExampleModel(1,"Harry Potter 1",
-            "http://s3.thingpic.com/images/UW/3ZiTHB6N1VYToynxJvG1N5uX.jpeg"),
-        new ExampleModel(2,"Harry Potter 2",
-            "http://harrypotterfanzone.com/wp-content/2009/06/cos-us-jacket-art.jpg"),
-        new ExampleModel(3,"Harry Potter 3","1"),
-        new ExampleModel(4,"Harry Potter 4","1"),
-        new ExampleModel(5,"Harry Potter 5","1"),
-        new ExampleModel(6,"Harry Potter 6","1"),
-        new ExampleModel(7,"Harry Potter 7","1")};
-
-    mModels = new ArrayList<>(Arrays.asList(BOOKS));
-    mAdapter.add(mModels);
   }
 
   public boolean onQueryTextChange(String query) {
@@ -100,5 +84,76 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
   public boolean onQueryTextSubmit(String query) {
     return false;
+  }
+
+  private void populateModelStorage() {
+    ExampleModel[] BOOKS = new ExampleModel[]{
+        ExampleModel.newBuilder()
+            .setID(1)
+            .setBookAuthor("J.K.Rowling")
+            .setBookTitle("Harry Potter 1")
+            .setBookPublisher("GenesisBooks")
+            .setBookCoverUrl("http://s3.thingpic.com/images/UW/3ZiTHB6N1VYToynxJvG1N5uX.jpeg")
+            .setYearOfPublishing("1999")
+            .setAvailable(true).build(),
+        ExampleModel.newBuilder()
+            .setID(2)
+            .setBookAuthor("J.K.Rowling")
+            .setBookTitle("Harry Potter 2")
+            .setBookPublisher("GenesisBooks")
+            .setBookCoverUrl(
+                "http://harrypotterfanzone.com/wp-content/2009/06/cos-us-jacket-art.jpg")
+            .setYearOfPublishing("2001")
+            .setAvailable(true)
+            .build(),
+        ExampleModel.newBuilder()
+            .setID(3)
+            .setBookAuthor("J.K.Rowling")
+            .setBookTitle("Harry Potter 3")
+            .setBookPublisher("GenesisBooks")
+            .setBookCoverUrl("empty")
+            .setYearOfPublishing("2002")
+            .setAvailable(true)
+            .build(),
+        ExampleModel.newBuilder()
+            .setID(4)
+            .setBookAuthor("J.K.Rowling")
+            .setBookTitle("Harry Potter 4")
+            .setBookPublisher("GenesisBooks")
+            .setBookCoverUrl("empty")
+            .setYearOfPublishing("2003")
+            .setAvailable(false)
+            .build(),
+        ExampleModel.newBuilder()
+            .setID(5)
+            .setBookAuthor("J.K.Rowling")
+            .setBookTitle("Harry Potter 5")
+            .setBookPublisher("GenesisBooks")
+            .setBookCoverUrl("empty")
+            .setYearOfPublishing("2004")
+            .setAvailable(false)
+            .build(),
+        ExampleModel.newBuilder()
+            .setID(6)
+            .setBookAuthor("J.K.Rowling")
+            .setBookTitle("Harry Potter 6")
+            .setBookPublisher("GenesisBooks")
+            .setBookCoverUrl("empty")
+            .setYearOfPublishing("2005")
+            .setAvailable(true)
+            .build(),
+        ExampleModel.newBuilder()
+            .setID(7)
+            .setBookAuthor("J.K.Rowling")
+            .setBookTitle("Harry Potter 7")
+            .setBookPublisher("GenesisBooks")
+            .setBookCoverUrl("empty")
+            .setYearOfPublishing("2006")
+            .setAvailable(true)
+            .build()
+    };
+
+    mModels = new ArrayList<>(Arrays.asList(BOOKS));
+    mAdapter.add(mModels);
   }
 }

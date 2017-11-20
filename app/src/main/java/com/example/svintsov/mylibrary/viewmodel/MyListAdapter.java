@@ -90,7 +90,7 @@ public class MyListAdapter extends RecyclerView.Adapter<ItemViewHolder> {
     return mSortedList.size();
   }
 
-  public void populateBookCoversFromURL(final ItemViewHolder holder, final ExampleModel model){
+  void populateBookCoversFromURL(final ItemViewHolder holder, final ExampleModel model){
     if (!model.getBookCoverUrl().equals("")) {
       Picasso.with(context)
           .load(model.getBookCoverUrl())

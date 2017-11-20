@@ -2,4 +2,6 @@
   <string name="app_name">MyLibrary</string>
   <string name="action_search">Search</string>
   <string name="title">Title</string>
+  <string name="available_true">Available</string>
+  <string name="available_false">Not available</string>
 </resources>
