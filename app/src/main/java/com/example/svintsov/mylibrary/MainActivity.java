@@ -1,5 +1,6 @@
 package com.example.svintsov.mylibrary;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v4.view.MenuItemCompat;
@@ -8,12 +9,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.SearchView;
 import android.view.Menu;
 import android.view.MenuItem;
-
-import android.widget.Toast;
 import com.example.svintsov.mylibrary.databinding.ActivityMainBinding;
 import com.example.svintsov.mylibrary.model.ExampleModel;
 import com.example.svintsov.mylibrary.viewmodel.MyListAdapter;
-
 import com.example.svintsov.mylibrary.viewmodel.MyListAdapter.Listener;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,10 +38,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     mAdapter = new MyListAdapter(this, ALPHABETICAL_COMPARATOR, new Listener() {
       @Override
       public void onExampleModelClicked(ExampleModel model) {
-        Toast.makeText(getApplicationContext(),model.getBookTitle(),Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getApplicationContext(),model.getBookTitle(),Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getApplicationContext(),FullInfoModelActivity.class);
+        intent.putExtra("MODEL",model);
+        startActivity(intent);
       }
     });
-    
+
     mBinding.recyclerView.setLayoutManager(new LinearLayoutManager(this));
     mBinding.recyclerView.setAdapter(mAdapter);
 
@@ -63,15 +64,15 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
 
   private void populateModelStorage() {
     ExampleModel[] BOOKS = new ExampleModel[]{
-        new ExampleModel("Harry Potter 1",
+        new ExampleModel(1,"Harry Potter 1",
             "http://s3.thingpic.com/images/UW/3ZiTHB6N1VYToynxJvG1N5uX.jpeg"),
-        new ExampleModel("Harry Potter 2",
+        new ExampleModel(2,"Harry Potter 2",
             "http://harrypotterfanzone.com/wp-content/2009/06/cos-us-jacket-art.jpg"),
-        new ExampleModel("Harry Potter 3","1"),
-        new ExampleModel("Harry Potter 4","1"),
-        new ExampleModel("Harry Potter 5","1"),
-        new ExampleModel("Harry Potter 6","1"),
-        new ExampleModel("Harry Potter 7","1")};
+        new ExampleModel(3,"Harry Potter 3","1"),
+        new ExampleModel(4,"Harry Potter 4","1"),
+        new ExampleModel(5,"Harry Potter 5","1"),
+        new ExampleModel(6,"Harry Potter 6","1"),
+        new ExampleModel(7,"Harry Potter 7","1")};
 
     mModels = new ArrayList<>(Arrays.asList(BOOKS));
     mAdapter.add(mModels);
