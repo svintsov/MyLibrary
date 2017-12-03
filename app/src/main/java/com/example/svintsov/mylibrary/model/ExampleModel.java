@@ -16,6 +16,7 @@ public class ExampleModel implements Parcelable {
   private String yearOfPublishing;
   private String bookCoverUrl;
   private Boolean available;
+  private String description;
 
   private ExampleModel() {
   }
@@ -28,6 +29,7 @@ public class ExampleModel implements Parcelable {
     bookPublisher = in.readString();
     yearOfPublishing = in.readString();
     available = Boolean.valueOf(in.readString());
+    description = in.readString();
   }
 
   public static Builder newBuilder() {
@@ -74,6 +76,11 @@ public class ExampleModel implements Parcelable {
       return this;
     }
 
+    public Builder setDescription(String description) {
+      ExampleModel.this.description = description;
+      return this;
+    }
+
     public ExampleModel build() {
       return ExampleModel.this;
     }
@@ -117,6 +124,10 @@ public class ExampleModel implements Parcelable {
 
   public Boolean isAvailable() {
     return available;
+  }
+
+  public String getDescription() {
+    return description;
   }
 
   @Override
@@ -167,5 +178,6 @@ public class ExampleModel implements Parcelable {
     parcel.writeString(bookPublisher);
     parcel.writeString(yearOfPublishing);
     parcel.writeString(String.valueOf(available));
+    parcel.writeString(description);
   }
 }

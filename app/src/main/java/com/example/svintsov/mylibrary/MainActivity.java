@@ -95,6 +95,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
             .setBookPublisher("GenesisBooks")
             .setBookCoverUrl("http://s3.thingpic.com/images/UW/3ZiTHB6N1VYToynxJvG1N5uX.jpeg")
             .setYearOfPublishing("1999")
+            .setDescription(getString(R.string.HR1_description))
             .setAvailable(true).build(),
         ExampleModel.newBuilder()
             .setID(2)
@@ -105,6 +106,7 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
                 "http://harrypotterfanzone.com/wp-content/2009/06/cos-us-jacket-art.jpg")
             .setYearOfPublishing("2001")
             .setAvailable(true)
+            .setDescription(getString(R.string.HR2_description))
             .build(),
         ExampleModel.newBuilder()
             .setID(3)
